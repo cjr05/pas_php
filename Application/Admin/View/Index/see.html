@@ -44,8 +44,8 @@
                 </li>
                 <li>
                     <label>资金状态</label>
-                    <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '已拨款'">checked </if>  value="已拨款"/>已拨款
-                    <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '未拨款'">checked </if>  value="未拨款"/>未拨款
+                    <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '1'">checked </if>  value="已拨款"/>已拨款
+                    <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '0'">checked </if>  value="未拨款"/>未拨款
                 </li>
                 <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="审核"/></li>
                 <!-- <li><label>&nbsp;</label><button class="btn"><a href="{:U('project')}">返回</a></button></li> -->

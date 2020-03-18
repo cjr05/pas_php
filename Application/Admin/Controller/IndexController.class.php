@@ -29,7 +29,7 @@ class IndexController extends CommonController{
             $count = ($admin_name =='admin') ? $project->count() : $project->where(array('people'=>$admin_name))->count(); 
             $Page = new \Think\Page($count,10);
             $show = $Page->show();
-            $info = ($admin_name =='admin') ? $project->getCoreStatus(array('status'=>'0'))->limit($Page->firstRow.','.$Page->listRows)->select() : $project->getCoreStatus(array('people'=>$admin_name,'status'=>'0'))->limit($Page->firstRow.','.$Page->listRows)->select();
+            $info = ($admin_name =='admin' || $admin_name == '财务') ? $project->getCoreStatus(array('status'=>'0'))->limit($Page->firstRow.','.$Page->listRows)->select() : $project->getCoreStatus(array('people'=>$admin_name,'status'=>'0'))->limit($Page->firstRow.','.$Page->listRows)->select();
             //dump($info);
                         
             
@@ -44,7 +44,7 @@ class IndexController extends CommonController{
         //$this->assign('list',$list);// 赋值数据集
         //dump($info);
         $this->assign('page',$show);// 赋值分页输出
-        $this->assign('is_main','main');
+        //$this->assign('is_main','main');
         $this->assign('info',$info);
         $this->display();
     }

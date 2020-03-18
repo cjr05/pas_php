@@ -62,6 +62,17 @@ class ProjectController extends CommonController{
                 'ctime' => date("Y-m-d h:i:s"),
             );
 
+            //获取流程节点
+            $addname = I('post.addname');
+            if(empty(session('addname'))){
+                $arr = array($addname);
+                session('addname') = $arr;
+            }else{
+                $arr = session('addname');
+                $arr[] = $addname;
+                session('addname') = $arr;
+            }
+
             $other = array(
                 'people'=> I('post.people'),
                 'other'=> I('post.other'),
@@ -75,7 +86,10 @@ class ProjectController extends CommonController{
             }
         }
         $info = $process->select();
+        $getPeople = D('People')->getPeople()->select();
+        //dump($getPeople);
         $this->assign('process',$info);
+        $this->assign('getPeople',$getPeople);
         $this->display();
     }
 

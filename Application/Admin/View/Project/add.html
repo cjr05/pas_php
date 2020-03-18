@@ -68,15 +68,44 @@
             <li><label>其他成员</label><input name="other" type="text" class="dfinput" /><i>多个用英文  ,  隔开</i></li>
             <li><label>所需公款</label><input name="money" type="text" class="dfinput" /><i></i></li>
             <li><label>理由</label><textarea name="reason" cols="" rows="" class="textinput"></textarea></li>
-            <li><label>所属流程</label><select class="dfinput">
-                <foreach name="process" item="v">
-                <option value ="proce">{$v.process}</option>
-                </foreach>
-            </select></li>
+            <li><label>所属流程</label>
+                <select class="dfinput">
+                    <foreach name="process" item="v">
+                        <option value ="proce">{$v.process}</option>
+                    </foreach>
+                </select>
+            </li>
+            <li><label>流程节点</label>
+                <select id="adduser" class="dfinput">
+                    <foreach name="getPeople" item="v">
+                        <option value ="process_type">{$v.name}</option>
+                    </foreach>
+                </select>
+                <input name="" id="addlc" type="button" value="添加流程" class="dfinput" />
+            </li>
             <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认发布"/></li>
         </ul>
     </div>
 </form>
+<!-- 引入jquery -->
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $("#addlc").click(function(){
+        var adduser = $("#adduser").val();
+        $.ajax({
+            url:"{:U(Project/add)}",
+            data:{addname:adduser},
+            type:"POST",
+            dataType:"json",
+            success:function(data){
+                window.location.href="{:U(Project/add)}";
+            }
+        })
+    })
+
+
+</script>
 
 </body>
 

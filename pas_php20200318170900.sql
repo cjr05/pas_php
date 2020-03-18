@@ -66,7 +66,7 @@ CREATE TABLE `people` (
 
 LOCK TABLES `people` WRITE;
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
-INSERT INTO `people` VALUES (2,'财务','123','','102,205,104,206','Finance-finance,Finance-see,Account-account'),(3,'admin','123','',NULL,''),(4,'wuhao','123','','105,102,205,202,201','Manager-login,Account-account,Account-upd,Project-add,Project-see,Project-project'),(5,'wh','123','','102,105,205,201,202','Manager-login,Account-account,Account-upd,Project-project,Project-add');
+INSERT INTO `people` VALUES (2,'财务','123','','102,205,104,206','Finance-finance,Finance-see,Account-account,Index-see'),(3,'admin','123','',NULL,''),(4,'经理','123','','105,102,205,202,201','Manager-login,Account-account,Account-upd,Project-add,Project-see,Project-project'),(5,'员工','123','','102,105,205,201,202','Manager-login,Account-account,Account-upd,Project-project,Project-add');
 /*!40000 ALTER TABLE `people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +107,7 @@ CREATE TABLE `principal` (
   `people` varchar(255) DEFAULT NULL,
   `other` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `principal` (
 
 LOCK TABLES `principal` WRITE;
 /*!40000 ALTER TABLE `principal` DISABLE KEYS */;
-INSERT INTO `principal` VALUES (6,'',''),(5,'吴昊','321321,dsa'),(4,'吴昊','符传越,李恩公开'),(7,'',''),(8,'',''),(9,'',''),(10,'',''),(11,'',''),(12,'',''),(13,'5号','6号,七号'),(14,'321321','3,2,1'),(15,'wuhao','1,2,3,4'),(16,'11','11'),(17,'wh','11,22,223'),(18,'wh','wh,吴浩,其他');
+INSERT INTO `principal` VALUES (6,'',''),(5,'吴昊','321321,dsa'),(4,'吴昊','符传越,李恩公开'),(7,'',''),(8,'',''),(9,'',''),(10,'',''),(11,'',''),(12,'',''),(13,'5号','6号,七号'),(14,'321321','3,2,1'),(15,'wuhao','1,2,3,4'),(16,'11','11'),(17,'wh','11,22,223'),(18,'wh','wh,吴浩,其他'),(19,'',''),(20,'',''),(21,'','');
 /*!40000 ALTER TABLE `principal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `project` (
   `mstatus` tinyint(4) DEFAULT '0' COMMENT '1.已拨款  0.未拨款',
   `done` tinyint(4) DEFAULT '0' COMMENT '1.已完成 0.未完成',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (7,'admin','吴昊',30000,'公司紧缺',NULL,'2003-02-00 00:00:00',1,0,0),(8,'滴滴滴','吴昊',508220,'倒萨大多数',NULL,'0000-00-00 00:00:00',0,0,0),(16,'学院工程','5号',3000000,'新建学院，购买地皮',NULL,'2019-06-25 04:25:43',1,0,0),(18,'建材','wuhao',2147483647,'sss',NULL,'2019-07-17 03:02:51',0,0,0),(19,'123111','11',11,'11',NULL,'2020-02-20 06:10:36',0,0,0),(20,'haha ','wh',23456,'qq',NULL,'2020-02-20 06:29:47',0,0,0),(21,'团队出差','wh',1000,'出差经费报销',NULL,'2020-02-27 09:31:22',0,0,0);
+INSERT INTO `project` VALUES (7,'admin','吴昊',30000,'公司紧缺',NULL,'2003-02-00 00:00:00',1,0,0),(8,'滴滴滴','吴昊',508220,'倒萨大多数',NULL,'0000-00-00 00:00:00',0,0,0),(16,'学院工程','5号',3000000,'新建学院，购买地皮',NULL,'2019-06-25 04:25:43',1,0,0),(18,'建材','wuhao',2147483647,'sss',NULL,'2019-07-17 03:02:51',0,0,0),(19,'123111','11',11,'11',NULL,'2020-02-20 06:10:36',0,0,0),(20,'haha ','wh',23456,'qq',NULL,'2020-02-20 06:29:47',0,0,0),(21,'团队出差','wh',1000,'出差经费报销',NULL,'2020-02-27 09:31:22',0,0,0),(22,'process_type','',0,'',NULL,'2020-03-18 04:29:53',0,0,0),(23,'process_type','',0,'',NULL,'2020-03-18 04:30:05',0,0,0),(24,'process_type','',0,'',NULL,'2020-03-18 04:30:11',0,0,0);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -185,4 +185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-16 17:20:53
+-- Dump completed on 2020-03-18 17:09:02
