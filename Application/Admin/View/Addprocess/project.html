@@ -23,7 +23,7 @@
     <span>位置：</span>
     <ul class="placeul">
         <li><a href="{:U('index/main')}">首页</a></li>
-        <li><a href="{:U(process)}">类型列表</a></li>
+        <li><a href="{:U(project)}">项目流程</a></li>
     </ul>
 </div>
 
@@ -46,17 +46,20 @@
 
     <table class="tablelist">
         <tr>
-            <th><input type="checkbox" onclick="SelectAll()" id="check" ></th>
-            <th>编号<i class="sort"><img src="__PUBLIC__/Admin/images/px.gif" /></i></th>
+            <th width="5%"><input type="checkbox" onclick="SelectAll()" id="check" ></th>
+            <th width="10%">ID<i class="sort"><img src="__PUBLIC__/Admin/images/px.gif" /></i></th>
+            <th>项目名称</th>
             <th>流程类型</th>
-            <th>操作</th>
+            <th>添加时间</th>
+            <th width="10%">状态</th>
+            <th width="25%">操作</th>
         </tr>
         <tbody>
         <foreach name="info" item="v">
             <tr style="text-align: center;">
                 <td><input type="checkbox" name="choose[]" value="{$v.id}"></td>
                 <td>{$v.id}</td>
-                <td>{$v.process_type}</td>
+                <td>{$v.process}</td>
                 <td><a href="{:U('del',array('id'=>$v['id']))}" class="tablelink"> 删除</a></td>
             </tr>
         </foreach>

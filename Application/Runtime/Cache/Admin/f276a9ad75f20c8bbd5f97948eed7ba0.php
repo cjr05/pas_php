@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,8 +8,8 @@
         .search{width:200px; height: 30px; border: 1px solid #369; margin-left: 30px;}
 
     </style>
-    <link href="__PUBLIC__/Admin/css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.js"></script>
+    <link href="/pas_php/Public/Admin/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/pas_php/Public/Admin/js/jquery.js"></script>
 
 
 
@@ -22,8 +22,8 @@
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li><a href="{:U('index/main')}">首页</a></li>
-        <li><a href="{:U(process)}">类型列表</a></li>
+        <li><a href="<?php echo U('index/main');?>">首页</a></li>
+        <li><a href="<?php echo U(process);?>">类型列表</a></li>
     </ul>
 </div>
 
@@ -32,8 +32,8 @@
     <div class="tools">
 
         <ul class="toolbar">
-            <a href="{:U('add')}"><li class="click"><span><img src="__PUBLIC__/Admin/images/t01.png" /></span>添加</li></a>
-            <form class="form" action="{:U('search')}" method="POST">
+            <a href="<?php echo U('add');?>"><li class="click"><span><img src="/pas_php/Public/Admin/images/t01.png" /></span>添加</li></a>
+            <form class="form" action="<?php echo U('search');?>" method="POST">
                 <input name="search" type="text" class="search" placeholder="" />
                 <input name="" type="submit" class="sure" value="查询"/>
             </form>
@@ -47,19 +47,17 @@
     <table class="tablelist">
         <tr>
             <th><input type="checkbox" onclick="SelectAll()" id="check" ></th>
-            <th>编号<i class="sort"><img src="__PUBLIC__/Admin/images/px.gif" /></i></th>
+            <th>编号<i class="sort"><img src="/pas_php/Public/Admin/images/px.gif" /></i></th>
             <th>流程类型</th>
             <th>操作</th>
         </tr>
         <tbody>
-        <foreach name="info" item="v">
-            <tr style="text-align: center;">
-                <td><input type="checkbox" name="choose[]" value="{$v.id}"></td>
-                <td>{$v.id}</td>
-                <td>{$v.process_type}</td>
-                <td><a href="{:U('del',array('id'=>$v['id']))}" class="tablelink"> 删除</a></td>
-            </tr>
-        </foreach>
+        <?php if(is_array($info)): foreach($info as $key=>$v): ?><tr style="text-align: center;">
+                <td><input type="checkbox" name="choose[]" value="<?php echo ($v["id"]); ?>"></td>
+                <td><?php echo ($v["id"]); ?></td>
+                <td><?php echo ($v["process_type"]); ?></td>
+                <td><a href="<?php echo U('del',array('id'=>$v['id']));?>" class="tablelink"> 删除</a></td>
+            </tr><?php endforeach; endif; ?>
         </tbody>
     </table>
 
@@ -69,7 +67,7 @@
         <tr class="content">
             <td colspan="3" bgcolor="#FFFFFF">
                 <div class="pages">
-                    {$page}
+                    <?php echo ($page); ?>
                 </div></td>
         </tr>
 

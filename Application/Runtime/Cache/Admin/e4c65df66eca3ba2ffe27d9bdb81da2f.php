@@ -1,10 +1,10 @@
-<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<?php if (!defined('THINK_PATH')) exit();?><!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
 <!--<html xmlns="http://www.w3.org/1999/xhtml">-->
 <!--<head>-->
 <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
 <!--<title>无标题文档</title>-->
 
-<!--<link href="__PUBLIC__/Admin/css/style.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="/pas_php/Public/Admin/css/style.css" rel="stylesheet" type="text/css" />-->
 <!--</head>-->
 
 <!--<body>-->
@@ -12,7 +12,7 @@
 	<!--<div class="place">-->
     <!--<span>位置：</span>-->
     <!--<ul class="placeul">-->
-    <!--<li><a href="{:U('project')}">项目列表</a></li>-->
+    <!--<li><a href="<?php echo U('project');?>">项目列表</a></li>-->
     <!--<li><a href="#">添加</a></li>-->
     <!--</ul>-->
     <!--</div>-->
@@ -46,7 +46,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
-    <link href="__PUBLIC__/Admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/pas_php/Public/Admin/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -54,8 +54,8 @@
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li><a href="{:U('index/main')}">首页</a></li>
-        <li><a href="{:U(add)}">项目发布</a></li>
+        <li><a href="<?php echo U('index/main');?>">首页</a></li>
+        <li><a href="<?php echo U(add);?>">项目发布</a></li>
     </ul>
 </div>
 
@@ -70,16 +70,12 @@
             <li><label>理由</label><textarea name="reason" cols="" rows="" class="textinput"></textarea></li>
             <li><label>所属流程</label>
                 <select name="process_type" class="dfinput">
-                    <foreach name="process" item="v">
-                        <option value ="{$v.process_type}">{$v.process_type}</option>
-                    </foreach>
+                    <?php if(is_array($process)): foreach($process as $key=>$v): ?><option value ="<?php echo ($v["process_type"]); ?>"><?php echo ($v["process_type"]); ?></option><?php endforeach; endif; ?>
                 </select>
             </li>
             <!-- <li><label>流程节点</label>
                 <select id="adduser" class="dfinput">
-                    <foreach name="getPeople" item="v">
-                        <option value ="addname">{$v.name}</option>
-                    </foreach>
+                    <?php if(is_array($getPeople)): foreach($getPeople as $key=>$v): ?><option value ="addname"><?php echo ($v["name"]); ?></option><?php endforeach; endif; ?>
                 </select>
                 <input name="" id="addlc" type="button" value="添加流程" class="dfinput" />
             </li> -->
@@ -88,14 +84,14 @@
     </div>
 </form>
 <!-- 引入jquery -->
-<!-- <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="/pas_php/Public/Admin/js/jquery.min.js"></script>
 
 <script type="text/javascript">
     $("#addlc").click(function(){
         
         //console.log($("#adduser").val());
         $.ajax({
-            url:"{:U('Project/add')}",
+            url:"<?php echo U('Project/add');?>",
             data:{addname:$("#adduser").val()},
             type:"POST",
             dataType:"json",
@@ -103,7 +99,7 @@
             success:function(data){
                 console.log("sss");
                 alert('提交成功');
-                //window.location.href="{:U('Project/add')}";
+                //window.location.href="<?php echo U('Project/add');?>";
 
             }
 

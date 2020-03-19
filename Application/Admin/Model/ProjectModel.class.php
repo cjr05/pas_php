@@ -10,9 +10,11 @@ class ProjectModel extends Model{
 	public function  getCoreStatus($where='',$order = 'id DESC'){
 		return $this->where($where)->order($order);
 	}
-
-
-	public function pageShow(){
-		
+	//查询所有项目数据
+	public function getAllProject($field='*',$where=''){
+		return $this->field($field)->where($where);
 	}
+
+
+
 }

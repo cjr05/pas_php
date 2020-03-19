@@ -53,25 +53,36 @@ class ProjectController extends CommonController{
         $project = D('Project');
         $principal = D('principal');
         $process = D('process');
+
+        //获取流程节点
+        // if(IS_AJAX){
+        //     print_r("sssssssssssssss");
+        //     $addname = I('post.addname');
+            
+        //     $a = session('addname');
+        //     if(empty($a)){
+        //         $arr = array($addname);
+        //         $a = $arr;
+        //     }else{
+        //         $arr = session('addname');
+        //         $arr[] = $addname;
+        //         $a = $arr;
+        //     }
+        //     $this->ajaxReturn($arr);
+        //     //print_r($arr);
+        // }
+        
+
+
         if(IS_POST){
             $data = array(
                 'name' => I('post.name'),
                 'people' => I('post.people'),
                 'money' => I('post.money'),
                 'reason' => I('post.reason'),
+                'process_type' => I('post.process_type'),
                 'ctime' => date("Y-m-d h:i:s"),
             );
-
-            //获取流程节点
-            $addname = I('post.addname');
-            if(empty(session('addname'))){
-                $arr = array($addname);
-                session('addname') = $arr;
-            }else{
-                $arr = session('addname');
-                $arr[] = $addname;
-                session('addname') = $arr;
-            }
 
             $other = array(
                 'people'=> I('post.people'),
@@ -86,10 +97,10 @@ class ProjectController extends CommonController{
             }
         }
         $info = $process->select();
-        $getPeople = D('People')->getPeople()->select();
+        //$getPeople = D('People')->getPeople()->select();
         //dump($getPeople);
         $this->assign('process',$info);
-        $this->assign('getPeople',$getPeople);
+        //$this->assign('getPeople',$getPeople);
         $this->display();
     }
 
