@@ -59,7 +59,9 @@
             <tr style="text-align: center;">
                 <td><input type="checkbox" name="choose[]" value="{$v.id}"></td>
                 <td>{$v.id}</td>
-                <td>{$v.process}</td>
+                <td>{$v.name}</td>
+                <td>{$v.process_type}</td>
+                <td>{$v.ctime}</td>
                 <td><a href="{:U('del',array('id'=>$v['id']))}" class="tablelink"> 删除</a></td>
             </tr>
         </foreach>
