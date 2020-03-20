@@ -13,7 +13,7 @@ use Admin\Common\CommonController;
 class AddprocessController extends CommonController
 {
     /**
-     * 查看流程
+     * 查看流程类型
      */
     function process(){
         $process = D('process');
@@ -26,6 +26,15 @@ class AddprocessController extends CommonController
         $this->assign('info',$info);
         $this->display();
     }
+
+    //项目流程
+    function project(){
+        $info = D('project')->getAllProject('id','name','process_type','ctime')->select();
+        dump($info);
+        $this->assign('info',$info);
+        $this->display();
+    }
+
 
     /**
      * 增加流程

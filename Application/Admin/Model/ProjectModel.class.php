@@ -11,8 +11,8 @@ class ProjectModel extends Model{
 		return $this->where($where)->order($order);
 	}
 	//查询所有项目数据
-	public function getAllProject($field='*',$where=''){
-		return $this->field($field)->where($where);
+	public function getAllProject($field='*'){
+		return $this->field($field);  //select * from project 
 	}
 
 
