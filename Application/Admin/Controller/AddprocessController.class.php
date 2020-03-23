@@ -29,12 +29,41 @@ class AddprocessController extends CommonController
 
     //项目流程
     function project(){
-        $info = D('project')->getAllProject('id','name','process_type','ctime')->select();
-        dump($info);
+        $info = D('project')
+                ->getAllProject('id,name,process_type,ctime,is_status')
+                ->select();
+        //dump($info);
         $this->assign('info',$info);
         $this->display();
     }
 
+    //禁用或开启流程
+    function change($id,$is_status){
+        
+        
+        if(IS_GET){
+            // dump($id);
+            // dump($is_status);
+            //exit;
+            $data['id'] = I('id');
+            $data['is_status'] = I('is_status');  
+            $shuju = D('project')->data($data)->save();
+
+            if($shuju){
+                $this->success('操作成功',U('Addprocess/project'));
+            }else{
+                $this->error('操作失败',U('Addprocess/project'));
+            }
+        }
+        
+    }
+
+    //设计流程
+    function design(){
+
+        
+        $this->display();
+    }
 
     /**
      * 增加流程
