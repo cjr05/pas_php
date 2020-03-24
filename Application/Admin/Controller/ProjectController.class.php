@@ -54,23 +54,6 @@ class ProjectController extends CommonController{
         $principal = D('principal');
         $process = D('process');
 
-        //获取流程节点
-        // if(IS_AJAX){
-        //     print_r("sssssssssssssss");
-        //     $addname = I('post.addname');
-            
-        //     $a = session('addname');
-        //     if(empty($a)){
-        //         $arr = array($addname);
-        //         $a = $arr;
-        //     }else{
-        //         $arr = session('addname');
-        //         $arr[] = $addname;
-        //         $a = $arr;
-        //     }
-        //     $this->ajaxReturn($arr);
-        //     //print_r($arr);
-        // }
         
 
 

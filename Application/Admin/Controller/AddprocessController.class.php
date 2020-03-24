@@ -60,8 +60,61 @@ class AddprocessController extends CommonController
 
     //设计流程
     function design(){
+        //exit;
+         //获取流程节点
+        if (IS_POST) {
+            $data = I('post.');
+            if(!$data){
+                $arr[] = $data;
+                session($data);
+            }else{
+                $arr = array($data);
+                session($data);
+            }
+            $arr = session($data);
+            //session('jiedian',$data);//将数据存在session里
+            //$jiedian = session('jiedian');
+            // if(empty($jiedian)){
+            //     $arr = array($data);
+            //     $jiedian = $arr;
+            // }else{
+            //     $arr = $jiedian;
+            //     $arr[] = $data;
+            //     $jiedian = $arr;
+            // }
 
-        
+            // if(!empty($data)){
+            //     session($data);
+            // }else{
+            //     $data = array();
+            // }
+            
+            $this->ajaxReturn($arr);
+            //ump($data);
+        }    
+        // if(IS_AJAX){
+        //     print_r(I('post.name'));
+        //     exit;
+        //     $addname = I('post.addname');
+            
+        //     $a = session('addname');
+        //     if(empty($a)){
+        //         $arr = array($addname);
+        //         $a = $arr;
+        //     }else{
+        //         $arr = session('addname');
+        //         $arr[] = $addname;
+        //         $a = $arr;
+        //     }
+        //     $this->ajaxReturn($arr);
+        //     //print_r($arr);
+        // }
+
+
+
+        $peopleList = D('people')->getPeople('id,name')->select();
+        //dump($peopleList);
+        $this->assign('peopleList',$peopleList);
         $this->display();
     }
 
