@@ -10,15 +10,9 @@
     </style>
     <link href="__PUBLIC__/Admin/css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.js"></script>
-
-
-
-
 </head>
 
-
 <body>
-
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
@@ -27,44 +21,25 @@
     </ul>
 </div>
 
-<form action="" method="POST">
+<form action="{:U('baocun')}" method="POST">
     <div class="formbody">
         <div class="formtitle"><span>流程信息</span></div>
         <ul class="forminfo">
             <li><label>流程节点</label>
-                <select id="adduser" class="dfinput">
+                <foreach name="peopleList" item="v">
+                    <input class="ck" type="radio" name="ck" value="{$v.id}" />{$v.name}
+                </foreach>
+                <!-- <select name="jiedian1"  class="dfinput">
                     <option value ="">请添加节点</option>
                     <foreach name="peopleList" item="v">
-                        <option value ="{$v.id}--{$v.name}">{$v.id}--{$v.name}</option>
+                        <option value ="{$v['name']}">{$v.name}</option>
                     </foreach>
-                </select>
-                <input name="" id="addjiedian" type="button" value="添加流程"/>
+                </select> -->
             </li>
-            <!-- <li><label>请选择节点人员</label>
-                <select name="process_type" class="dfinput">
-                    <foreach name="process" item="v">
-                        <option value ="{$v.process_type}">{$v.process_type}</option>
-                    </foreach>
-                </select>
-            </li> -->
-            <foreach name="$arr">
-                <li><label>显示节点</label><input name="name" type="text" class="dfinput" />{$Think.session.jiedian}</li>
-            </foreach>
+            <li><input class="dfinput" type="button" value="添加节点" id="insert" /></li>
             
-           <!--  <li><label>项目负责人</label><input name="people" type="text" class="dfinput" /><i style="color:red;">*必须是当前账户</i></li>
-            <li><label>其他成员</label><input name="other" type="text" class="dfinput" /><i>多个用英文  ,  隔开</i></li>
-            <li><label>所需公款</label><input name="money" type="text" class="dfinput" /><i></i></li>
-            <li><label>理由</label><textarea name="reason" cols="" rows="" class="textinput"></textarea></li> -->
-            
-            <!-- <li><label>流程节点</label>
-                <select id="adduser" class="dfinput">
-                    <foreach name="getPeople" item="v">
-                        <option value ="addname">{$v.name}</option>
-                    </foreach>
-                </select>
-                <input name="" id="addlc" type="button" value="添加流程" class="dfinput" />
-            </li> -->
-            <!-- <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认发布"/></li> -->
+            <!-- <li><label>显示节点</label><div id="displayjieidan"></div></li> -->
+            <li><label>&nbsp;</label><input id="baocun" type="submit" class="btn" value="保存"/></li>
         </ul>
     </div>
 </form>
@@ -72,33 +47,99 @@
 <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.min.js"></script>
 
 <script type="text/javascript">
-    $("#addjiedian").click(function(){
-        var $adduser = $("#adduser").val();
+    $("#insert").click(function(){
+        var ck = $(".ck");  //找到项
+        var uid = "";
+        for(var i=0;i<ck.length;i++)
+        {
+            if(ck.eq(i).prop("checked"))  //单选按钮的选中状态
+            {
+            　　uid = ck.eq(i).val();  //单选按钮的值
+            }
+        }
+             
         $.ajax({
-                type: "POST",
-                url:"{:U('Addprocess/design')}",
-                data: {
-                    name:$adduser
-                },
-                success: function($data) {
-                    console.log($data);
-                }
-        });
-
-
-        //console.log("sss");
+            url:"{:U('design')}",  //添加节点的处理页面
+            data:{uid:uid},  //将单选按钮的值传过去
+            type:"POST",  //传值方式
+            dataType:"TEXT",  //值的返回状态
+            success: function(data){
+                console.log(data);
+                //window.location.href="{:U('design')}";  //执行处理页面成功后会刷新页面
+            　　}
+            });
     })
+    // $("#addjiedian").click(function(){
+    //     var $uname = $("#adduser").val();
+    //     $.ajax({
+    //             type: "POST",
+    //             url:"{:U('Addprocess/design')}",
+    //             data: {uname:$uname},
+    //             dataType:"json",
+    //             success: function(data) {
+    //                 console.log(data);
+    //                 var str = '';
+    //                 // $.each(data,function(i,item){
+    //                 //     //str = str + item[0] ;  
+    //                 //     // $.each(item,function(j,val){
+    //                 //     //     console.log(j+"----"+val); 
+    //                 //     //     str = str+val;  
+    //                 //     // })
+                       
+    //                 // })
+    //                 // $("#displayjieidan").html(str);
+    //                 for (var k in data) {
+    //                         console.log(data[k].uname);
+    //                         if(data[k].uname==''){
+    //                                 alert(data[k].msg);
+    //                                 $("#displayjieidan").html(data[k].msg);
+    //                                 window.location.href = "{:U('Addprocess/design')}";
+    //                         }else{
+    //                             str = str+data[k].uname;
+    //                         }     
+                    
+    //                     $("#displayjieidan").html(str);
+    //                 }
+    //             }
+    //         })
+    // })
 
+    // $("#baocun").click(function(){
+    //     var jiedian = $("#displayjieidan").val();
+    //     console.log(jiedian);
+    //     $.ajax({
+    //         url:"{:U('baocun')}",
+    //         data:{jiedian:jiedian},
+    //         type:"POST",
+    //         dataType:"json",
+    //         success: function(data){
+    //             alert("保存成功");
+    //         }
+    //     })
+    // })
+
+
+
+
+
+    // //移除的点击事件
+    // $("#yichu").click(function(){
+    //     console.log("ssss");
+    //     var sy = $(this).attr("sy");
+    //     $.ajax({
+    //         url:"{:U('Addprocess/remove')}",
+    //         data:{sy:sy},
+    //         type:"POST",
+    //         dataType:"json",
+    //         success: function(data){
+    //             alert("success");
+    //             //window.location.href="liucheng.php";
+    //         }
+    //     })
+    // })
 
 </script>
 
-
-
-
-
-
-
-</div>
 
 </body>
 

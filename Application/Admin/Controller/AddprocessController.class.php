@@ -60,62 +60,88 @@ class AddprocessController extends CommonController
 
     //设计流程
     function design(){
-        //exit;
          //获取流程节点
-        if (IS_POST) {
-            $data = I('post.');
-            if(!$data){
-                $arr[] = $data;
-                session($data);
+        //$data = array();
+        if (IS_POST) { 
+            $uid = I('post.uid');
+            if(empty($uid)){
+                $attr = array($uid);  //定义一个数组放用户
+                session("jiedian",$attr); //将第一个用户放入数组中
             }else{
-                $arr = array($data);
-                session($data);
+                $attr = session("jiedian"); //数组中有值
+                $attr[] = $uid;  //放入数组中值
+                session("jiedian",$attr);   //将值再交给session
             }
-            $arr = session($data);
-            //session('jiedian',$data);//将数据存在session里
-            //$jiedian = session('jiedian');
-            // if(empty($jiedian)){
-            //     $arr = array($data);
-            //     $jiedian = $arr;
-            // }else{
-            //     $arr = $jiedian;
-            //     $arr[] = $data;
-            //     $jiedian = $arr;
-            // }
-
-            // if(!empty($data)){
-            //     session($data);
-            // }else{
-            //     $data = array();
-            // }
-            
-            $this->ajaxReturn($arr);
-            //ump($data);
-        }    
-        // if(IS_AJAX){
-        //     print_r(I('post.name'));
-        //     exit;
-        //     $addname = I('post.addname');
-            
-        //     $a = session('addname');
-        //     if(empty($a)){
-        //         $arr = array($addname);
-        //         $a = $arr;
+        $this->ajaxReturn($attr);        
+            // $shuju = I('post.'); 
+            // dump($shuju);
+        //     $data = I('post.');
+        //     // $data[] = explode("|", $data);
+        //     // dump($data);
+        //     if(!empty($data['uname'])){
+        //         //$uid = D('people')->field('id')->where(array('name'=>$data['uname']))->find();
+        //         $arr = session('arr');
+        //         $arr[] = $data; 
+        //         //$arr[] = $uid;
+        //         session('arr',$arr);
         //     }else{
-        //         $arr = session('addname');
-        //         $arr[] = $addname;
-        //         $a = $arr;
+        //          $data['uname'] = '';
+        //          $data['msg'] = "添加失败，请重新添加！！";
+        //          $arr = array($data);
+        //          session('arr',$arr);
         //     }
-        //     $this->ajaxReturn($arr);
-        //     //print_r($arr);
-        // }
-
-
-
+        //     $this->ajaxReturn(session('arr'));
+        //     //ump($data);
+         }  
+        // //清除session值  
+        session('jiedian',null);
+        
         $peopleList = D('people')->getPeople('id,name')->select();
         //dump($peopleList);
         $this->assign('peopleList',$peopleList);
         $this->display();
+    }
+
+    //移除流程
+    // function remove(){
+    //     $uid = I('post.');
+    //     $arr = session('arr');
+    //     unset($arr[$uid]);
+    //     $arr = array_values($arr);
+    //     session('arr',$arr);
+    //     $this->ajaxReturn(session('arr'));
+    // }
+
+    function baocun(){
+        if(IS_POST){
+            //$uid = time();
+            $shuju = I('post.');
+
+
+            // $shuju =  session('arr');
+            // $data = array();
+            // foreach ($shuju as $key => $value) {
+            //     $uname = $value['uname'];
+            //     $uid = time();
+            //     $data['uid'] = $uid;
+            //     $data['uname'] = $uname;
+            //     //session('data',$data);
+            //     //$value = array_push($value,time());
+                
+
+                
+            // }
+            // $jiedian = D('jiedian')->add($data);
+             
+            // if($jiedian){
+            //     $this->success('设置成功',U('Addprocess/project'));
+            // }else{
+            //     $this->error('设置失败',U('Addprocess/design'));
+            // }
+
+        }
+        
+        
     }
 
     /**

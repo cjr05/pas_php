@@ -92,10 +92,19 @@ class ProjectController extends CommonController{
     function see(){
 
 
+        $project=D("Project");
+
+
         $id = I('get.id');
         if(IS_POST){
-            dump($_POST);
-            exit;
+            $shuju['status'] = I('post.status');
+            $shuju['mstatus'] = I('post.mstatus');
+            $num = $project->where(array('id'=>$id))->save($shuju);
+            if($num){
+                $this->success('成功',U('project'));
+            }else{
+                $this->error('失败',U('project'));
+            }
         }
 
 
@@ -104,7 +113,7 @@ class ProjectController extends CommonController{
         $info = D('Project')->where(array('id'=>$id))->find();
         $other = D('principal')->where(array('people'=>$info['people']))->find();
         //$plan = D('plan')->select();
-        dump($plan);
+        //dump($plan);
         if($info['status']=='0'){
             echo '<script> alert("项目未审核，无法访问！！");
                             location.href="'.U('project').'";      
