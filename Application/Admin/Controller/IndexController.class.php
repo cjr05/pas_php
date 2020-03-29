@@ -76,9 +76,24 @@ class IndexController extends CommonController{
     }
 
     public function top(){
-        $admin_id = session('id');
-        $admin_name = session('name');
+        // $admin_id = session('id');
+        // $admin_name = session('name');
+        // $num = M('project')->where(array('status'=>'0'))->count();
+        // $this->assign('num',$num);
+        // $this->display();
+
+        $admin_id = session('admin_id');
+        $admin_name = session('admin_name');
+//        print_r($admin_name);
+//        exit;
+        $time =  date(h);
+        $tip = '';
+        if ($time<11)$tip='早上好';
+        else if($time<13)$tip='中午好';
+        else if($time<17)$tip='下午好';
+        else $tip='晚上好';
         $num = M('project')->where(array('status'=>'0'))->count();
+        $this->assign('tip',$tip);
         $this->assign('num',$num);
         $this->display();
     }
