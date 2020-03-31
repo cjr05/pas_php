@@ -63,38 +63,31 @@ class AddprocessController extends CommonController
          //获取流程节点
         //$data = array();
         if (IS_POST) { 
-            $uid = I('post.uid');
-            if(empty($uid)){
-                $attr = array($uid);  //定义一个数组放用户
-                session("jiedian",$attr); //将第一个用户放入数组中
-            }else{
-                $attr = session("jiedian"); //数组中有值
-                $attr[] = $uid;  //放入数组中值
-                session("jiedian",$attr);   //将值再交给session
+            $data = I('post.');
+                
+
+            // for($i=0;$i<2;$i++){
+
+            // }
+
+            foreach ($data as $value) {
+                $order = rand(0,1);
+                $code = time();
+                $jieidan = $value; 
+                // $order'] = $order;
+                //dump($jiedian);
+                $sql = D('jiedian')->query("insert into jiedian value('{$code}','{$jiedian}','{$order}')");
+                //$shuju = D('jiedian')->add($jiedian);
             }
-        $this->ajaxReturn($attr);        
-            // $shuju = I('post.'); 
-            // dump($shuju);
-        //     $data = I('post.');
-        //     // $data[] = explode("|", $data);
-        //     // dump($data);
-        //     if(!empty($data['uname'])){
-        //         //$uid = D('people')->field('id')->where(array('name'=>$data['uname']))->find();
-        //         $arr = session('arr');
-        //         $arr[] = $data; 
-        //         //$arr[] = $uid;
-        //         session('arr',$arr);
-        //     }else{
-        //          $data['uname'] = '';
-        //          $data['msg'] = "添加失败，请重新添加！！";
-        //          $arr = array($data);
-        //          session('arr',$arr);
-        //     }
-        //     $this->ajaxReturn(session('arr'));
-        //     //ump($data);
+
+            //$jiedian = D('jiedian')->add($data);
+            // if($jiedian){
+            //     $this->success('添加成功',U('project'));
+            // }else{
+            //     $this->error('添加失败',U('design'));
+            // }
          }  
-        // //清除session值  
-        session('jiedian',null);
+        
         
         $peopleList = D('people')->getPeople('id,name')->select();
         //dump($peopleList);
@@ -102,47 +95,7 @@ class AddprocessController extends CommonController
         $this->display();
     }
 
-    //移除流程
-    // function remove(){
-    //     $uid = I('post.');
-    //     $arr = session('arr');
-    //     unset($arr[$uid]);
-    //     $arr = array_values($arr);
-    //     session('arr',$arr);
-    //     $this->ajaxReturn(session('arr'));
-    // }
-
-    function baocun(){
-        if(IS_POST){
-            //$uid = time();
-            $shuju = I('post.');
-
-
-            // $shuju =  session('arr');
-            // $data = array();
-            // foreach ($shuju as $key => $value) {
-            //     $uname = $value['uname'];
-            //     $uid = time();
-            //     $data['uid'] = $uid;
-            //     $data['uname'] = $uname;
-            //     //session('data',$data);
-            //     //$value = array_push($value,time());
-                
-
-                
-            // }
-            // $jiedian = D('jiedian')->add($data);
-             
-            // if($jiedian){
-            //     $this->success('设置成功',U('Addprocess/project'));
-            // }else{
-            //     $this->error('设置失败',U('Addprocess/design'));
-            // }
-
-        }
-        
-        
-    }
+  
 
     /**
      * 增加流程

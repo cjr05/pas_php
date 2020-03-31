@@ -84,9 +84,11 @@ class IndexController extends CommonController{
 
         $admin_id = session('admin_id');
         $admin_name = session('admin_name');
-//        print_r($admin_name);
-//        exit;
-        $time =  date(h);
+        //dump($admin_name);
+        //dump($admin_id);
+        //exit;
+        $time =  date("H");
+        //dump($time);
         $tip = '';
         if ($time<11)$tip='早上好';
         else if($time<13)$tip='中午好';
