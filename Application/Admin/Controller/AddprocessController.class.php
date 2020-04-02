@@ -59,38 +59,34 @@ class AddprocessController extends CommonController
     }
 
     //设计流程
-    function design(){
+    function design($id){
          //获取流程节点
-        //$data = array();
+        //dump($id);
         if (IS_POST) { 
-            $data = I('post.');
-                
-
-            // for($i=0;$i<2;$i++){
-
+            $data = array(
+                'code'=>time(),
+                'name'=>I('post.name'),
+                'people'=>I('post.people'),
+                'jiedian'=>I('jiedian')
+            );
+            //dump($data);
+            
+            // foreach ($data as $key => $value) {
+            //     dump($value);
             // }
-
-            foreach ($data as $value) {
-                $order = rand(0,1);
-                $code = time();
-                $jieidan = $value; 
-                // $order'] = $order;
-                //dump($jiedian);
-                $sql = D('jiedian')->query("insert into jiedian value('{$code}','{$jiedian}','{$order}')");
-                //$shuju = D('jiedian')->add($jiedian);
+            $shuju = D('jiedian')->add($data);
+            if($shuju){
+                $this->success('添加成功',U('project'));
+            }else{
+                $this->error('添加失败',U('design'));
             }
-
-            //$jiedian = D('jiedian')->add($data);
-            // if($jiedian){
-            //     $this->success('添加成功',U('project'));
-            // }else{
-            //     $this->error('添加失败',U('design'));
-            // }
          }  
         
-        
+        $proName = D('project')->field('name,people')->where(array('id'=>$id))->find();
+        //dump($proName);
         $peopleList = D('people')->getPeople('id,name')->select();
         //dump($peopleList);
+        $this->assign('proName',$proName);
         $this->assign('peopleList',$peopleList);
         $this->display();
     }

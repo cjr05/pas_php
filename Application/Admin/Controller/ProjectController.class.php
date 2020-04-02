@@ -39,7 +39,18 @@ class ProjectController extends CommonController{
         // }else{
         //     $info = $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
         // }
-        $info = ($admin_name =='admin') ? $project->limit($Page->firstRow.','.$Page->listRows)->select() : $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
+
+        switch ($admin_name) {
+            case '员工':
+                $info = $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
+                break;
+            
+            default:
+                $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();
+                break;
+        }
+
+        //$info = ($admin_name !=='员工') ? $project->limit($Page->firstRow.','.$Page->listRows)->select() : $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
         //dump($info);
         //$this->assign('list',$list);// 赋值数据集
         $this->assign('page',$show);// 赋值分页输出
@@ -51,12 +62,8 @@ class ProjectController extends CommonController{
     #添加
     function add(){
         $project = D('Project');
-        $principal = D('principal');
+        //$principal = D('principal');
         $process = D('process');
-
-        
-
-
         if(IS_POST){
             $data = array(
                 'name' => I('post.name'),
@@ -65,15 +72,13 @@ class ProjectController extends CommonController{
                 'reason' => I('post.reason'),
                 'process_type' => I('post.process_type'),
                 'ctime' => date("Y-m-d h:i:s"),
-            );
-
-            $other = array(
-                'people'=> I('post.people'),
                 'other'=> I('post.other'),
             );
+
+            
             $shuju = $project->add($data);
-            $shuju1 = $principal->add($other);
-            if($shuju&&$shuju1){
+            
+            if($shuju){
                 $this->success('发布成功',U('Project/project'));
             }else{
                 $this->error('发布失败',U('Manager/add'));
@@ -90,11 +95,7 @@ class ProjectController extends CommonController{
 
     #查看
     function see(){
-
-
         $project=D("Project");
-
-
         $id = I('get.id');
         if(IS_POST){
             $shuju['status'] = I('post.status');
@@ -164,9 +165,10 @@ class ProjectController extends CommonController{
         if(IS_POST){
             $shuju = I('post.');
             $shuju['ctime'] = time();
-            // dump($shuju);
+           
+            $num = $project->where(array('id'=>$id))->save($shuju);
+            //  dump($num);
             // exit;
-            $num = $project->save($shuju);
             if($num){
                 $this->success('修改成功',U('project'));
             }else{
@@ -174,6 +176,10 @@ class ProjectController extends CommonController{
             }
         }else{
             $info = $project->find($id);
+            $pro_type = D('process')->select();
+            //dump($pro_type);
+            $this->assign('pro_type',$pro_type);
+            
             $this->assign("info",$info);
             $this->display("update");
         }

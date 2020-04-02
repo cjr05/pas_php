@@ -54,7 +54,9 @@
             <td><if condition="$v['mstatus'] eq '1'">已拨款 <else /> 未拨款 </if></td>
             <td><if condition="$v['done'] eq '1'">已完成 <else /> 未完成 </if></td>
             <td>{$v.ctime}</td>
-            <td><a href="{:U('see',array('id'=>$v['id']))}" class="tablelink">查看</a>     <a href="{:U('del',array('id'=>$v['id']))}" class="tablelink">删除</a></li>
+            <td><a href="{:U('see',array('id'=>$v['id']))}" class="tablelink">查看</a>
+                <a href="{:U('update',array('id'=>$v['id']))}" class="tablelink">修改</a>    
+                <a href="{:U('del',array('id'=>$v['id']))}" class="tablelink">删除</a></li>
         </tr>
         </foreach>
 

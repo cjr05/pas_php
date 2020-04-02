@@ -25,20 +25,23 @@
     <div class="formbody">
         <div class="formtitle"><span>流程信息</span></div>
         <ul class="forminfo">
-            <li><label>流程节点一</label>
-                <select name="jiedianyi" class="dfinput">
+            <li><label>发起人</label><input type="" name="people" value="{$proName.people}">
+            <li><label>项目名称</label><input type="" name="name" value="{$proName.name}">    
+            <li><label>流程节点</label>
+                <select id="jiedian" name="jiedian" class="dfinput">
                     <foreach name="peopleList" item="v">
                         <option value ="{$v.name}">{$v.name}</option>
                     </foreach>
                 </select> 
             </li>
-            <li><label>流程节点二</label>
-                <select name="jiedianer" class="dfinput">
+            <!-- <button id="tianjia">添加</button> -->
+            <!-- <li><label>流程节点二</label>
+                <select name="jiedian" class="dfinput">
                     <foreach name="peopleList" item="v">
                         <option value ="{$v.name}">{$v.name}</option>
                     </foreach>
                 </select> 
-            </li>
+            </li> -->
             <li><label>&nbsp;</label><input id="baocun" type="submit" class="btn" value="保存"/></li>
         </ul>
     </div>
@@ -47,7 +50,16 @@
 <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.min.js"></script>
 
 <script type="text/javascript">
-    
+    $('#tianjia').click(function(){
+        $.ajax({
+            url:"{:U('design')}",
+            type:"POST",
+            data:{jiedian:$("#jiedian").val()},
+            success:function(data){
+                console.log(data)
+            }
+        });
+    });
 </script>
 
 

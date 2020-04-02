@@ -18,7 +18,7 @@ class FinanceController extends CommonController
         $Page = new \Think\Page($count,10);
         $show = $Page->show();
         // $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();
-        $info = $project->where('mstatus=0 and status = 1')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $info = $project->where('status = 1')->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('page',$show);// 赋值分页输出
         if ($info){
             $this->assign('info',$info);
