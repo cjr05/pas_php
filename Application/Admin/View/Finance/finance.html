@@ -32,7 +32,6 @@
                 <th>负责人</th>
                 <th>所需公款</th>
                 <th>状态</th>
-                <th>资金状态</th>
                 <th>创建时间</th>
                 <th>操作</th>
             </tr>
@@ -44,7 +43,6 @@
                 <td>{$v.name}</td>
                 <td>{$v.people}</td>
                 <td>{$v.money}</td>
-                <td><if condition="$v['status'] eq '1'">已审核 <else /> 未审核 </if></td>
                 <td><if condition="$v['mstatus'] eq '1'">已拨款 <else /> 未拨款 </if></td>
                 <td>{$v.ctime}</td>
                 <td><a href="{:U('see',array('id'=>$v['id']))}" class="tablelink">查看</a>     <a href="{:U('del',array('id'=>$v['id']))}" class="tablelink">删除</a></li>
