@@ -20,20 +20,18 @@
 <form action="" method="POST">
     <div class="formbody">
         <div class="formtitle"><span>基本信息</span></div>
-        <if condition="$Think.session.admin_name eq 'admin'">
-
         <ul class="forminfo">
             <li><label>项目名称</label><input readonly name="name" type="text" class="dfinput" value="{$info.name}"/></li>
             <li><label>项目负责人</label><input readonly name="people" type="text" class="dfinput" value="{$info.people}" /></li>
             <li><label>所需公款</label><input name="money" type="text" class="dfinput" value="{$info.money}"/><i></i></li>
             <li><label>发布时间</label><input readonly class="dfinput" name="ctime"  value="{$info.ctime}"/></li>
             <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认拨款"/></li>
-            <li><label>&nbsp;</label><button class="btn"><a href="{:U('finance')}">返回</a></button></li>
+            <li><label>&nbsp;</label></li>
         </ul>
 
     </div>
 </form>
-
+            <a href="{:U('finance')}"><button class="btn">返回</button></a>
 </body>
 
 </html>

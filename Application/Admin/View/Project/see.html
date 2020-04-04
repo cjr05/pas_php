@@ -25,34 +25,44 @@
 <form action="" method="POST">
     <div class="formbody">
         <div class="formtitle"><span>基本信息</span></div>
-    
+        
         <div class="ystep3" style=" margin-left:100px; margin-bottom: 15px;">
             <p style="position: absolute; left: 40px; top: 130px;">项目进度</p>
         </div>
-        <if condition="$Think.session.admin_name eq 'admin'">
+        
             <ul class="forminfo">
                 <li><label>项目名称</label><input name="name" type="text" class="dfinput" value="{$info.name}"/><i>标题不能超过30个字符</i></li>
                 <li><label>项目负责人</label><input name="people" type="text" class="dfinput" value="{$info.people}" /></li>
-                <li><label>其他成员</label><input name="other" type="text" class="dfinput" value="{$other.other}"/><i></i></li>
+                <li><label>其他成员</label><input name="other" type="text" class="dfinput" value="{$info.other}"/><i></i></li>
                 <li><label>所需公款</label><input name="money" type="text" class="dfinput" value="{$info.money}"/><i></i></li>
                 <li><label>理由</label><textarea name="reason" cols="" rows="" class="textinput" value="">{$info.reason}</textarea></li>
                 <li><label>发布时间</label><input class="dfinput" name="ctime"  value="{$info.ctime}"/></li>
-                <li>
+                <!-- <li>
                     <label>审核状态</label>
                     <input name="status" type="radio" <if condition="$info['status'] eq '1'">checked </if>  value="已审核"/>已审核
                     <input name="status" type="radio" <if condition="$info['status'] eq '0'">checked </if> value="未审核"/>未审核
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                     <label>资金状态</label>
                     <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '已拨款'">checked </if>  value="已拨款"/>已拨款
                     <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '未拨款'">checked </if>  value="未拨款"/>未拨款
-                </li>
+                </li> -->
+                <!-- <li><label>备注</label><input class="dfinput" type="text" id="msg" name="msg" required="required"  value=""/></li> -->
+                <li><input type="hidden" name="id" value="{$info.id}"></li>
                 <li>
-                  <if condition="main"><label>&nbsp;</label><input name="" type="submit" class="btn" value="审核"/><else /><label>&nbsp;</label><button class="btn"><a href="{:U('project')}">返回</a></button></if>
+                  <if condition="$Think.session.admin_name  eq '员工' ">
+                    <label>&nbsp;</label><input name="" type="submit" class="btn" value="完成"/>
+                  <elseif condition="$Think.session.admin_name  eq '经理'"/>
+                    <label>&nbsp;</label><input name="" type="submit" class="btn" value="通过"/>
+                    <!-- <input type="button" id="tuihui" name="-1"  class="btn" value="退回" /> -->
+                    <!-- <a href="{:U('project',array('status'=>'-1'))}"><button class="btn">退回</button></a> -->
+                  <else/>
+                    <label>&nbsp;</label><button class="btn"><a href="{:U('project')}">返回</a></button>
+                  </if>
                 </li>
                 <!-- <li><label>&nbsp;</label><button class="btn"><a href="{:U('project')}">返回</a></button></li> -->
             </ul>
-        </if>
+        
     </div>
 </form>
 <script>
@@ -84,6 +94,29 @@ $(".ystep3").loadStep({
 });
 
 $(".ystep3").setStep({$num});
+
+
+// $("#tuihui").click(function(){
+//   var status = $(this).attr('name');
+  
+//   var msg = $("#msg").val();
+//   //console.log(msg);
+//   $.ajax({
+//     url:"{:U('see')}",
+//     data:{
+//       status:$(this).attr('name'),
+//       msg:$("#msg").val(),
+//     },
+//     type:"POST",
+//     dataType:"json",
+//     success:function(data){
+//       console.log(data);
+//       alert("chengong");
+//     }
+//   });
+// });
+
+
 
 </script>
 </body>

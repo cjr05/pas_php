@@ -49,7 +49,7 @@ class ProjectController extends CommonController{
                 $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();
                 break;
         }
-        //dump($info);
+
         //$info = ($admin_name !=='员工') ? $project->limit($Page->firstRow.','.$Page->listRows)->select() : $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
         //dump($info);
         //$this->assign('list',$list);// 赋值数据集
@@ -95,111 +95,54 @@ class ProjectController extends CommonController{
 
     #查看
     function see(){
-
-
-
-        $admin_name = session('admin_name');
-        //dump($admin_name);
-        
         $project=D("Project");
         $id = I('get.id');
         if(IS_POST){
-            $id = I('post.id');
-            switch ($admin_name) {
-                case '员工':
-                    $data['done'] = '1';
-                    break;
-                case '经理':
-                    $data['status'] = '1';
-                    break;
-
-                default:
-    
-                    break;
-            }
-
-            //dump($data);
-            // $shuju['status'] = I('post.status');
-            $num = $project->where(array('id'=>$id))->save($data);
+            $shuju['status'] = I('post.status');
+            $shuju['mstatus'] = I('post.mstatus');
+            $num = $project->where(array('id'=>$id))->save($shuju);
             if($num){
                 $this->success('成功',U('project'));
             }else{
-                $this->error('失败',U('see'));
+                $this->error('失败',U('project'));
             }
         }
 
 
-        
-
-        // $shuju = D('Project')->where(array('id'=>$id))->select();
-        //dump($shuju);
+        $shuju = D('Project')->where(array('id'=>$id))->select();
         //$other = D('Principal')->where(array('id'=>$id))->select();
         $info = D('Project')->where(array('id'=>$id))->find();
-        //dump($info);
-        // $other = D('principal')->where(array('people'=>$info['people']))->find();
-        //dump($other);
+        $other = D('principal')->where(array('people'=>$info['people']))->find();
         //$plan = D('plan')->select();
         //dump($plan);
-        // if($info['status']=='0' and $id=='admin'){
-        //     echo '<script> alert("项目未审核，无法访问！！");
-        //                     location.href="'.U('project').'";      
-        //         </script>';
-        // }else{
-        //     $this->assign('info',$info);
-        //     $this->assign('other',$other);
-        //     //$this->assign('plan',$plan);
-        //     if($info){
-        //     //项目发布即存在
-        //     $this->assign('num',1);
-        //     }
-        //     if ($info && $info['status']=='1') {
-        //         $this->assign('num',2);    
-        //     }
-        //     if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-        //         $this->assign('num',3);    
-        //     }
-        //     if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-        //         $this->assign('num',4);    
-        //     }
-        // }        
-        $this->assign('info',$info);
-        $this->assign('other',$other);
-        $this->assign('plan',$plan);
-        if($info){
-        //项目发布即存在
-        $this->assign('num',1);
-        }
-        if ($info && $info['status']=='1') {
-            $this->assign('num',2);    
-        }
-        if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-            $this->assign('num',3);    
-        }
-        if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-            $this->assign('num',4);    
-        }
+        if($info['status']=='0'){
+            echo '<script> alert("项目未审核，无法访问！！");
+                            location.href="'.U('project').'";      
+                </script>';
+        }else{
+            $this->assign('info',$info);
+            $this->assign('other',$other);
+            //$this->assign('plan',$plan);
+            if($info){
+            //项目发布即存在
+            $this->assign('num',1);
+            }
+            if ($info && $info['status']=='1') {
+                $this->assign('num',2);    
+            }
+            if ($info && $info['status']=='1' && $info['mstatus']=='1') {
+                $this->assign('num',3);    
+            }
+            if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
+                $this->assign('num',4);    
+            }
+        }        
+
         
         // $this->assign('info',$info);
         // $this->assign('other',$other);
         $this->display();
     }
-
-    //项目退回
-    function tuihui(){
-
-        $data['ss'] = 'ssssssss';
-        if(IS_AJAX){
-            $data = array(
-                'status'=>I('post.status'),
-                'msg'=>I('post.msg')    
-            );
-        }
-        dump($data);
-        //$data['status']= $status;
-        $this->ajaxReturn($data);
-    }
-
-
 
     #删除
     function del(){

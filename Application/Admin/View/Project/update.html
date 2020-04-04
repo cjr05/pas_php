@@ -71,27 +71,12 @@
             <li><label>所属流程</label>
                 <select name="process_type" class="dfinput">
                     <foreach name="pro_type" item="v">
-                        <if condition="$info['process_type'] eq $v['process_type']">
-                                <option value ="{$v.process_type}"> {$v.process_type}</option>
-                            selected</if>
+                        <option value ="{$v.process_type}" <if condition="$info['process_type'] eq $v['process_type']">selected = "selected"</if>  > {$v.process_type}</option>   
                     </foreach>
                 </select>
-               <!--  <select name="process_type" class="dfinput">
-                    <foreach name="pro_type" item="v"> -->
-                        
-                        <!-- <option value ="{$v.process_type}">{$v.process_type}</option> -->
-                       <!--  </if> -->
-                   <!--  </foreach>
-                </select> -->
+              
             </li>
-            <!-- <li><label>流程节点</label>
-                <select id="adduser" class="dfinput">
-                    <foreach name="getPeople" item="v">
-                        <option value ="addname">{$v.name}</option>
-                    </foreach>
-                </select>
-                <input name="" id="addlc" type="button" value="添加流程" class="dfinput" />
-            </li> -->
+            
             <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="保存"/></li>
         </ul>
     </div>
