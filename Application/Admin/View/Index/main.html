@@ -10,6 +10,15 @@
 <script src="https://code.highcharts.com.cn/highcharts/highcharts-3d.js"></script>
 <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
 <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+  
+  #project{ width: 60%;  border: 1px solid  red; }
+  
+
+</style>
 </head>
 
 
@@ -24,7 +33,7 @@
     
     <div class="mainindex">
         
-        <div class="welinfo">
+        <!-- <div class="welinfo">
             <span><img src="__PUBLIC__/Admin/images/sun.png" alt="天气" /></span>
             <b>{$Think.session.admin_name}早上好，欢迎使用信息管理系统</b>
         </div>
@@ -33,44 +42,29 @@
         <div class="welinfo">
             <span><img src="__PUBLIC__/Admin/images/dp.png" alt="提醒" /></span>
             <b>Uimaker项目管理系统使用指南</b>
+        </div> -->
+
+        <div id="container" style="width: 450px; height: 400px; float: right;   "></div>
+        <div id="project">
+          <ul class="list-group">
+            <li class="list-group-item">免费域名注册</li>
+            <li class="list-group-item">免费 Window 空间托管</li>
+            <li class="list-group-item">图像的数量</li>
+            <li class="list-group-item">
+              <span class="badge">新</span>
+              24*7 支持
+            </li>
+            <li class="list-group-item">每年更新成本</li>
+            <li class="list-group-item">
+              <span class="badge">新</span>
+              折扣优惠
+            </li>
+          </ul>
+
         </div>
+        
 
-        <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-
-        <table class="tablelist">
-            <tr>
-            <!-- <th><input type="checkbox" onclick="SelectAll()" id="check"></th> -->
-            <th>编号<i class="sort"><img src="__PUBLIC__/Admin/images/px.gif" /></i></th>
-            <th>项目名称</th>
-            <th>审批状态</th>
-            <th>操作</th>
-            </tr>
-            <tbody>
-            <foreach name="info" item="v"> 
-            <tr style="text-align: center;">
-            <!-- <td><input type="checkbox"  name="choose[]" value="{$v.id}"></td> -->
-            <td>{$v.id}</td>
-            <td>{$v.name}</td>
-            <td><if condition="$v['status'] eq '0'">未审核 </if></td>
-            <td>
-                <a href="{:U('Index/see',array('id'=>$v['id']))}" class="tablelink">进行审批</a>
-                <a href="{:U('del',array('id'=>$v['id']))}" class="tablelink">删除</a>
-            </td>
-            </tr>
-            </foreach>
-            </tbody>
-        </table>
-
-            <div class="pagenew">
-
-                <tr class="content">
-                    <td colspan="3" bgcolor="#FFFFFF">
-                        <div class="pages">
-                        {$page}
-                    </div></td>
-                </tr>
-
-            </div>
+           
     </div>
 
     
@@ -85,7 +79,7 @@ $(document).ready(function() {
       text: '所有项目'   
    };      
    var tooltip = {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}% {point.y}个</b>'
    };
    var plotOptions = {
       pie: {
@@ -93,7 +87,7 @@ $(document).ready(function() {
          cursor: 'pointer',
          dataLabels: {
             enabled: true,
-            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+            format: '<b>{point.name}</b>: {point.percentage:.1f}% {point.y}个',
             style: {
                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
             }
@@ -102,13 +96,13 @@ $(document).ready(function() {
    };
    var series= [{
       type: 'pie',
-      name: 'Browser share',
+      name: '项目数量',
       data: [
-         ['处理',   45.0],
-         ['审批',   26.8],
+         ['未完成',   {$doneNum}],
+         ['未拨款',   {$isMStatusNum}],
          {
-            name: '未处理',
-            y: 12.8,
+            name: '已审核',
+            y: {$isStatusNum},
             sliced: true,
             selected: true
          },

@@ -15,6 +15,12 @@ class ProjectModel extends Model{
 		return $this->field($field)->order($order);  //select * from project 
 	}
 
+	//查询未处理的项目
+	public function selectStatus($field='*',$where=''){
+		return $this->field($field)->where($where);
+	}
+	//查询未完成的项目
 
+	//查询拨款的项目
 
 }

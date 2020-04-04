@@ -35,8 +35,18 @@ class IndexController extends CommonController{
             
         }
 
-
-
+        //未完成项目数量
+        $doneNum = $project->selectStatus('done',array('done'=>'0'))->count();
+        //dump($doneNum);
+        
+        //审批
+        $isStatusNum = $project->selectStatus('status',array('status'=>'0'))->count(); 
+        
+        //未拨款
+        $isMStatusNum = $project->selectStatus('status',array('mstatus'=>'0'))->count();
+        $this->assign('doneNum',$doneNum);
+        $this->assign('isStatusNum',$isStatusNum);
+        $this->assign('isMStatusNum',$isMStatusNum);
         // $count = ($admin_name =='admin') ? $project->count() : $project->where(array('people'=>$admin_name))->count(); 
         // $Page = new \Think\Page($count,10);
         // $show = $Page->show();
