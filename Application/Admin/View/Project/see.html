@@ -47,14 +47,14 @@
                     <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '已拨款'">checked </if>  value="已拨款"/>已拨款
                     <input name="mstatus" type="radio" <if condition="$info['mstatus'] eq '未拨款'">checked </if>  value="未拨款"/>未拨款
                 </li> -->
-                <!-- <li><label>备注</label><input class="dfinput" type="text" id="msg" name="msg" required="required"  value=""/></li> -->
-                <li><input type="hidden" name="id" value="{$info.id}"></li>
+                <li><label>备注</label><input class="dfinput" type="text" id="msg" name="msg" required="required"  value=""/></li>
+                <li><input type="hidden" name="id" id="pid" value="{$info.id}"></li>
                 <li>
                   <if condition="$Think.session.admin_name  eq '员工' ">
                     <label>&nbsp;</label><input name="" type="submit" class="btn" value="完成"/>
                   <elseif condition="$Think.session.admin_name  eq '经理'"/>
                     <label>&nbsp;</label><input name="" type="submit" class="btn" value="通过"/>
-                    <!-- <input type="button" id="tuihui" name="-1"  class="btn" value="退回" /> -->
+                    <input type="button" id="tuihui" name="-1"  class="btn" value="退回" />
                     <!-- <a href="{:U('project',array('status'=>'-1'))}"><button class="btn">退回</button></a> -->
                   <else/>
                     <label>&nbsp;</label><button class="btn"><a href="{:U('project')}">返回</a></button>
@@ -96,25 +96,27 @@ $(".ystep3").loadStep({
 $(".ystep3").setStep({$num});
 
 
-// $("#tuihui").click(function(){
-//   var status = $(this).attr('name');
+$("#tuihui").click(function(){
+  //var status = $(this).attr('name');
+  var pid = $("#pid").val();
+  //console.log(pid);
+  //var msg = $("#msg").val();
   
-//   var msg = $("#msg").val();
-//   //console.log(msg);
-//   $.ajax({
-//     url:"{:U('see')}",
-//     data:{
-//       status:$(this).attr('name'),
-//       msg:$("#msg").val(),
-//     },
-//     type:"POST",
-//     dataType:"json",
-//     success:function(data){
-//       console.log(data);
-//       alert("chengong");
-//     }
-//   });
-// });
+  $.ajax({
+    url:"{:U('tuihui')}",
+    data:{
+      pid:pid,
+      status:$(this).attr('name'),
+      msg:$("#msg").val(),
+    },
+    type:"POST",
+    dataType:"json",
+    success:function(data){
+      console.log(data);
+      alert("chengong");
+    }
+  });
+});
 
 
 
