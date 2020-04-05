@@ -187,16 +187,23 @@ class ProjectController extends CommonController{
     //项目退回
     function tuihui(){
 
-        $data['ss'] = 'ssssssss';
+        //$data['ss'] = 'ssssssss';
         if(IS_AJAX){
+            $id = I('post.pid');
             $data = array(
+
                 'status'=>I('post.status'),
                 'msg'=>I('post.msg')    
             );
+
+            if($data){
+                $info = D('project')->where(array('id'=>$id))->save($data);
+            }
+            $this->ajaxReturn($info);
         }
-        dump($data);
+        //dump($data);
         //$data['status']= $status;
-        $this->ajaxReturn($data);
+        
     }
 
 

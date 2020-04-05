@@ -44,7 +44,7 @@ class ManagerController extends CommonController{
                 if ($shuju) {
                     session('admin_id', $shuju['id']);
                     session('admin_name', $shuju['name']);
-                   
+                    session('admin_password', $shuju['password']);
                     
                     $this->redirect('Index/index');
                 }
