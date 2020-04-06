@@ -64,7 +64,7 @@
         <div class="formtitle"><span>基本信息</span></div>
         <ul class="forminfo">
             <li><label>项目名称</label><input name="name" type="text" class="dfinput" /><i>标题不能超过30个字符</i></li>
-            <li><label>项目负责人</label><input name="people" type="text" class="dfinput" /><i style="color:red;">*必须是当前账户</i></li>
+            <li><label>项目负责人</label><input name="people" type="text" value="{$Think.session.admin_name}" class="dfinput" /><i style="color:red;">*必须是当前账户</i></li>
             <li><label>其他成员</label><input name="other" type="text" class="dfinput" /><i>多个用英文  ,  隔开</i></li>
             <li><label>所需公款</label><input name="money" type="text" class="dfinput" /><i></i></li>
             <li><label>理由</label><textarea name="reason" cols="" rows="" class="textinput"></textarea></li>
