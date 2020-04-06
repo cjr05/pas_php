@@ -140,47 +140,47 @@ class ProjectController extends CommonController{
         //dump($other);
         //$plan = D('plan')->select();
         //dump($plan);
-        // if($info['status']=='0' and $id=='admin'){
-        //     echo '<script> alert("项目未审核，无法访问！！");
-        //                     location.href="'.U('project').'";      
-        //         </script>';
-        // }else{
-        //     $this->assign('info',$info);
-        //     $this->assign('other',$other);
-        //     //$this->assign('plan',$plan);
-        //     if($info){
-        //     //项目发布即存在
-        //     $this->assign('num',1);
-        //     }
-        //     if ($info && $info['status']=='1') {
-        //         $this->assign('num',2);    
-        //     }
-        //     if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-        //         $this->assign('num',3);    
-        //     }
-        //     if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-        //         $this->assign('num',4);    
-        //     }
-        // }        
+        if($info['status']=='-1' && $admin_name=='员工'){
+            echo '<script> alert("无法查看，请修改项目！！");
+                            location.href="'.U('project').'";      
+                </script>';
+        }else{
+            $this->assign('info',$info);
+            //$this->assign('other',$other);
+            //$this->assign('plan',$plan);
+            if($info){
+            //项目发布即存在
+            $this->assign('num',1);
+            }
+            if ($info && $info['status']=='1') {
+                $this->assign('num',2);    
+            }
+            if ($info && $info['status']=='1' && $info['mstatus']=='1') {
+                $this->assign('num',3);    
+            }
+            if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
+                $this->assign('num',4);    
+            }
+        }        
         $this->assign('info',$info);
-        $this->assign('other',$other);
-        $this->assign('plan',$plan);
-        if($info){
-        //项目发布即存在
-        $this->assign('num',1);
-        }
-        if ($info && $info['status']=='1') {
-            $this->assign('num',2);    
-        }
-        if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-            $this->assign('num',3);    
-        }
-        if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-            $this->assign('num',4);    
-        }
+        //$this->assign('other',$other);
+        //$this->assign('plan',$plan);
+        // if($info){
+        // //项目发布即存在
+        // $this->assign('num',1);
+        // }
+        // if ($info && $info['status']=='1') {
+        //     $this->assign('num',2);    
+        // }
+        // if ($info && $info['status']=='1' && $info['mstatus']=='1') {
+        //     $this->assign('num',3);    
+        // }
+        // if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
+        //     $this->assign('num',4);    
+        // }
         
         // $this->assign('info',$info);
-        // $this->assign('other',$other);
+        
         $this->display();
     }
 
