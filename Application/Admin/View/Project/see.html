@@ -80,7 +80,7 @@ $(".ystep3").loadStep({
   },
   {
     title: "审核",
-    content: "超级管理员"
+    content: "经理"
   },
   {
     title: "拨款",
@@ -112,8 +112,10 @@ $("#tuihui").click(function(){
     type:"POST",
     dataType:"json",
     success:function(data){
-      console.log(data);
-      alert("chengong");
+      //console.log(data);
+      alert("退回成功");
+      window.location.href = ("{:U('project')}");
+      //window.location.href = "{:U('Manager/adminExit')}";
     }
   });
 });

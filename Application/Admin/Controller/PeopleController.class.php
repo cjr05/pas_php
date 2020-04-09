@@ -32,27 +32,16 @@ class PeopleController extends CommonController{
          if(IS_POST && I('post.name')!='' && I('post.password')!=''){
              $data = array(
                 'name'=>I('post.name'),
-                'password'=>I('post.password'),
-                'role_name'=>I('post.role_name')
+                'password'=>I('post.password')
                 );
              //$role = I('post.role');
               //dump($role);
-            
-
-
-             switch ($role) {
-                   case '员工':
-                       $data['auth_id'] = '102,103,205,204';
-                       $data['auth_ca'] = 'Manager-login,Account-account,Account-upd,People-add';
-                       break;
-                   default:
-                       $data['auth_id'] = '101,201';
-                       $data['auth_ca'] = 'Project-project,Project-see';
-                       break;
-               }  
-
-             // dump($data);
-             // exit;  
+            if($data){
+                $data['role_name']='4';
+                $data['auth_id'] = '102,205,201,105,202,106,208';
+                $data['auth_ca'] = 'Manager-login,Account-account,Account-upd,Project-project,Project-add,Project-see,Project-update,Addprocess-project,Project-del,Project-DelAll';
+            }
+ 
              $shuju = $project->add($data);
 
              if($shuju){

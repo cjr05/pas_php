@@ -50,7 +50,6 @@
         <th>编号<i class="sort"><img src="__PUBLIC__/Admin/images/px.gif" /></i></th>
         <th>名字</th>
         <th>密码</th>
-        <th>权限ID</th>
         <th>拥有权限</th>
         <th>操作</th>
         </tr>
@@ -61,7 +60,6 @@
         <td>{$v.id}</td>
         <td>{$v.name}</td>
         <td>{$v.password}</td>
-        <td>{$v.auth_id}</td>
         <td>{$v.auth_ca}</td>
         <td><a href="{:U('del',array('id'=>$v['id']))}" class="tablelink"> 删除</a></td>
         </tr>
