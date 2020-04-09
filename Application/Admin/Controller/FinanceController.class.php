@@ -14,7 +14,8 @@ class FinanceController extends CommonController
 {
     public function finance(){
         $project = D('Project');
-        $count = $project->count();
+        $count =  $project->count();
+        dump($conut);
         $Page = new \Think\Page($count,10);
         $show = $Page->show();
         // $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();

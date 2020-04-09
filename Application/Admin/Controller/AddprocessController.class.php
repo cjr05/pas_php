@@ -29,9 +29,19 @@ class AddprocessController extends CommonController
 
     //项目流程
     function project(){
-        $info = D('project')
+        $admin_name = session('admin_name');
+        $role_name = D('People')->field('role_name')->where(array('name'=>$admin_name))->find();
+        if($role_name['role_name']=='4'){
+            $info = D('project')
+                    ->getAllProject('id,name,process_type,ctime,is_status',array('people'=>$admin_name))
+                    ->select();
+        }else{
+            $info = D('project')
                 ->getAllProject('id,name,process_type,ctime,is_status')
                 ->select();
+        }
+
+        
         //dump($info);
         $this->assign('info',$info);
         $this->display();

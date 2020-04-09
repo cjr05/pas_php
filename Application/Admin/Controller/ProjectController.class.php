@@ -19,40 +19,21 @@ class ProjectController extends CommonController{
     public function Project(){
         $admin_name = session('admin_name');
         //dump($admin_name);
+        $role_name = D('People')->field('role_name')->where(array('name'=>$admin_name))->find(); 
+        //dump($role_name['role_name']);
+        //session('role_name', $role_name['role_name']);
         $project = D('Project');
-
-
-        // $a =  $project->getCoreStatus(array('status'=>'1'))->select();
-        // dump($a);
-        // if($admin_name =='admin'){
-        //     $count = $project->count();
-        // }else{
-        //     $count = $project->where(array('people'=>$admin_name))->count();
-        // }
-        //dump($count);
+        //项目数量
         $count = ($admin_name =='admin') ? $project->count() : $project->where(array('people'=>$admin_name))->count(); 
-        
+        //dump($count);
         $Page = new \Think\Page($count,10);
         $show = $Page->show();
-        // if($admin_name =='admin'){
-        //     $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();
-        // }else{
-        //     $info = $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
-        // }
-
-        switch ($admin_name) {
-            case '员工':
-                $info = $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
-                break;
-            
-            default:
-                $info = $project->limit($Page->firstRow.','.$Page->listRows)->select();
-                break;
+       
+        if($role_name['role_name']=='4'){
+            $info = $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->order('id desc')->select();
+        }else{
+            $info = $project->limit($Page->firstRow.','.$Page->listRows)->order('id desc')->select();
         }
-        //dump($info);
-        //$info = ($admin_name !=='员工') ? $project->limit($Page->firstRow.','.$Page->listRows)->select() : $project->where(array('people'=>$admin_name))->limit($Page->firstRow.','.$Page->listRows)->select();
-        //dump($info);
-        //$this->assign('list',$list);// 赋值数据集
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('info',$info);
         $this->display();
@@ -140,47 +121,36 @@ class ProjectController extends CommonController{
         //dump($other);
         //$plan = D('plan')->select();
         //dump($plan);
-        if($info['status']=='-1' && $admin_name=='员工'){
-            echo '<script> alert("无法查看，请修改项目！！");
-                            location.href="'.U('project').'";      
-                </script>';
+        if($info['is_status'] !== '0'){
+            if($info['status']=='-1' && $admin_name=='员工'){
+                echo '<script> alert("无法查看，请修改项目！！");
+                                location.href="'.U('project').'";      
+                    </script>';
+            }else{
+                $this->assign('info',$info);
+                //$this->assign('other',$other);
+                //$this->assign('plan',$plan);
+                if($info){
+                //项目发布即存在
+                $this->assign('num',1);
+                }
+                if ($info && $info['status']=='1') {
+                    $this->assign('num',2);    
+                }
+                if ($info && $info['status']=='1' && $info['mstatus']=='1') {
+                    $this->assign('num',3);    
+                }
+                if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
+                    $this->assign('num',4);    
+                }
+            } 
         }else{
-            $this->assign('info',$info);
-            //$this->assign('other',$other);
-            //$this->assign('plan',$plan);
-            if($info){
-            //项目发布即存在
-            $this->assign('num',1);
-            }
-            if ($info && $info['status']=='1') {
-                $this->assign('num',2);    
-            }
-            if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-                $this->assign('num',3);    
-            }
-            if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-                $this->assign('num',4);    
-            }
-        }        
+             echo '<script> alert("admin禁用此项目无法查看，请联系admin！！");
+                                location.href="'.U('project').'";      
+                    </script>';
+        }
+               
         $this->assign('info',$info);
-        //$this->assign('other',$other);
-        //$this->assign('plan',$plan);
-        // if($info){
-        // //项目发布即存在
-        // $this->assign('num',1);
-        // }
-        // if ($info && $info['status']=='1') {
-        //     $this->assign('num',2);    
-        // }
-        // if ($info && $info['status']=='1' && $info['mstatus']=='1') {
-        //     $this->assign('num',3);    
-        // }
-        // if ($info && $info['status']=='1' && $info['mstatus']=='1' && $info['done']=='1') {
-        //     $this->assign('num',4);    
-        // }
-        
-        // $this->assign('info',$info);
-        
         $this->display();
     }
 
@@ -229,7 +199,7 @@ class ProjectController extends CommonController{
         if(IS_POST){
             $shuju = I('post.');
             $shuju['ctime'] = time();
-           
+            $shuju['status'] = '0';
             $num = $project->where(array('id'=>$id))->save($shuju);
             //  dump($num);
             // exit;
